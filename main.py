@@ -89,7 +89,7 @@ class Attention(nn.Module):
         attention_scores = torch.matmul(attention_percents, v)
         return attention_scores
 
-class DecoderOnlyTransformer(nn.Module):
+class PingModel(nn.Module):
 
     def __init__(self, num_tokens=4, d_model=2, max_len=6, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -114,7 +114,7 @@ class DecoderOnlyTransformer(nn.Module):
         fc_layer_output = self.fc_layer(residual_connection_values)
         return fc_layer_output
 
-model = DecoderOnlyTransformer(num_tokens=len(token_to_id), d_model=2, max_len=6)
+model = PingModel(num_tokens=len(token_to_id), d_model=2, max_len=6)
 
 def generate(input_ids):
     input_length = input_ids.size(dim=0)
@@ -164,6 +164,8 @@ def load(filename):
     model.load_state_dict(torch.load(f"checkpoints/{filename}"))
 
 if __name__ == "__main__":
+    print(model)
+
     # train()
     # save()
     # generate(torch.tensor([
